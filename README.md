@@ -24,8 +24,5 @@ Hangarin is a simple web application built with Django that helps users organize
 - `Task` → `SubTask` (one-to-many, via `parent_task`)
 - `Task` → `Note` (one-to-many)
 
-All models inherit a `BaseModel` with `created_at` and `updated_at` timestamps.
 
-## Setup
 
-1. Clone the repository:
