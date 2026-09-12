@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Home - Hangarin{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-label">Total Tasks</div>
+            <div class="stat-value">{{ tasks|length }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0 text-muted">All Tasks</h6>
+    <a href="/admin/Tasks/task/add/" class="btn btn-primary-sky">
+        <i class="bi bi-plus-lg me-1"></i> Add Task
+    </a>
+</div>
+
+<div class="card-panel">
+    <table class="table table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Priority</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>
+                    {% if task.status == "Pending" %}
+                        <span class="badge-pill badge-pending">Pending</span>
+                    {% elif task.status == "In Progress" %}
+                        <span class="badge-pill badge-progress">In Progress</span>
+                    {% else %}
+                        <span class="badge-pill badge-completed">Completed</span>
+                    {% endif %}
+                </td>
+                <td>{{ task.deadline|date:"M d, Y H:i" }}</td>
+                <td>{{ task.priority.name }}</td>
+                <td>{{ task.category.name }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center text-muted py-4">No tasks yet. Add some via /admin/.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
