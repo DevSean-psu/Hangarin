@@ -4,7 +4,22 @@
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h6 class="mb-0 text-muted">All Tasks</h6>
+    <form method="get" class="d-flex" style="max-width: 320px;">
+        <input type="text" name="q" class="form-control me-2" placeholder="Search tasks..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+    </form>
+
+    <form method="get" class="d-flex align-items-center">
+        {% if request.GET.q %}<input type="hidden" name="q" value="{{ request.GET.q }}">{% endif %}
+        <label class="me-2 mb-0 text-muted small">Sort by</label>
+        <select name="sort_by" class="form-select form-select-sm me-2" style="width: auto;">
+            <option value="title" {% if request.GET.sort_by == "title" %}selected{% endif %}>Title</option>
+            <option value="deadline" {% if request.GET.sort_by == "deadline" %}selected{% endif %}>Deadline</option>
+            <option value="status" {% if request.GET.sort_by == "status" %}selected{% endif %}>Status</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary-sky">Sort</button>
+    </form>
+
     <a href="{% url 'task-add' %}" class="btn btn-primary-sky">
         <i class="bi bi-plus-lg me-1"></i> Add Task
     </a>
@@ -44,7 +59,7 @@
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="6" class="text-center text-muted py-4">No tasks yet.</td></tr>
+            <tr><td colspan="6" class="text-center text-muted py-4">No tasks found.</td></tr>
             {% endfor %}
         </tbody>
     </table>
