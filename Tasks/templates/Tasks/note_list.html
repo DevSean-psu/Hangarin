@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Notes - Hangarin{% endblock %}
+{% block page_title %}Notes{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0 text-muted">All Notes</h6>
+    <a href="{% url 'note-add' %}" class="btn btn-primary-sky">
+        <i class="bi bi-plus-lg me-1"></i> Add Note
+    </a>
+</div>
+
+<div class="card-panel">
+    <table class="table table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Content</th>
+                <th>Created</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+            <tr>
+                <td>{{ note.task.title }}</td>
+                <td>{{ note.content|truncatechars:60 }}</td>
+                <td>{{ note.created_at|date:"M d, Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'note-update' note.pk %}" class="action-link">Edit</a>
+                    <a href="{% url 'note-delete' note.pk %}" class="action-link text-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center text-muted py-4">No notes yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'includes/pagination.html' %}
+
+{% endblock %}

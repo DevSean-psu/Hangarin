@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Categories - Hangarin{% endblock %}
+{% block page_title %}Categories{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0 text-muted">All Categories</h6>
+    <a href="{% url 'category-add' %}" class="btn btn-primary-sky">
+        <i class="bi bi-plus-lg me-1"></i> Add Category
+    </a>
+</div>
+
+<div class="card-panel">
+    <table class="table table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a href="{% url 'category-update' category.pk %}" class="action-link">Edit</a>
+                    <a href="{% url 'category-delete' category.pk %}" class="action-link text-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="2" class="text-center text-muted py-4">No categories yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'includes/pagination.html' %}
+
+{% endblock %}

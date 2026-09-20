@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit {{ view.model._meta.verbose_name|title }}{% else %}Add {{ view.model._meta.verbose_name|title }}{% endif %} - Hangarin{% endblock %}
+{% block page_title %}{% if object %}Edit {{ view.model._meta.verbose_name|title }}{% else %}Add {{ view.model._meta.verbose_name|title }}{% endif %}{% endblock %}
+{% block content %}
+
+<div class="card-panel p-4" style="max-width: 600px;">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger small mt-1">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary-sky">
+            <i class="bi bi-check-lg me-1"></i> Save
+        </button>
+        <a href="javascript:history.back()" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}SubTasks - Hangarin{% endblock %}
+{% block page_title %}SubTasks{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0 text-muted">All SubTasks</h6>
+    <a href="{% url 'subtask-add' %}" class="btn btn-primary-sky">
+        <i class="bi bi-plus-lg me-1"></i> Add SubTask
+    </a>
+</div>
+
+<div class="card-panel">
+    <table class="table table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Parent Task</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subtask in subtasks %}
+            <tr>
+                <td>{{ subtask.title }}</td>
+                <td>
+                    {% if subtask.status == "Pending" %}
+                        <span class="badge-pill badge-pending">Pending</span>
+                    {% elif subtask.status == "In Progress" %}
+                        <span class="badge-pill badge-progress">In Progress</span>
+                    {% else %}
+                        <span class="badge-pill badge-completed">Completed</span>
+                    {% endif %}
+                </td>
+                <td>{{ subtask.parent_task.title }}</td>
+                <td>
+                    <a href="{% url 'subtask-update' subtask.pk %}" class="action-link">Edit</a>
+                    <a href="{% url 'subtask-delete' subtask.pk %}" class="action-link text-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center text-muted py-4">No subtasks yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'includes/pagination.html' %}
+
+{% endblock %}
