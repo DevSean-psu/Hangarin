@@ -4,6 +4,7 @@
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-3">
+    
     <form method="get" class="d-flex" style="max-width: 320px;">
         <input type="text" name="q" class="form-control me-2" placeholder="Search tasks..." value="{{ request.GET.q }}">
         <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
