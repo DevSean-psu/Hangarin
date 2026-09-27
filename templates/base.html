@@ -30,16 +30,16 @@
                 <h5 class="mb-0 fw-semibold">{% block page_title %}Dashboard{% endblock %}</h5>
 
                 <div class="dropdown">
-                    <button class="user-pill dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <span class="user-avatar">G</span>
-                        <span class="ms-2">Guest</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Log out</a></li>
-                    </ul>
+             <button class="user-pill dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <span class="user-avatar">{{ request.user.username|first|upper }}</span>
+    <span class="ms-2">{{ request.user.username }}</span>
+</button>
+<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Log out</a></li>
+</ul>
                 </div>
             </header>
 

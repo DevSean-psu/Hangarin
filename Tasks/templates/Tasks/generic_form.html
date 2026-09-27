@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{% if object %}Edit {{ view.model._meta.verbose_name|title }}{% else %}Add {{ view.model._meta.verbose_name|title }}{% endif %} - Hangarin{% endblock %}
-{% block page_title %}{% if object %}Edit {{ view.model._meta.verbose_name|title }}{% else %}Add {{ view.model._meta.verbose_name|title }}{% endif %}{% endblock %}
+{% block title %}{% if object %}Edit {{ model_name }}{% else %}Add {{ model_name }}{% endif %} - Hangarin{% endblock %}
+{% block page_title %}{% if object %}Edit {{ model_name }}{% else %}Add {{ model_name }}{% endif %}{% endblock %}
 {% block content %}
 
 <div class="card-panel p-4" style="max-width: 600px;">

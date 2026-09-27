@@ -7,7 +7,10 @@ from .models import Task, SubTask, Note, Category, Priority
 from .forms import TaskForm, SubTaskForm, NoteForm, CategoryForm, PriorityForm
 
 
-class HomePageView(ListView):
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "Tasks/home.html"
     context_object_name = "tasks"
@@ -21,7 +24,6 @@ class HomePageView(ListView):
         context["total_categories"] = Category.objects.count()
         context["total_priorities"] = Priority.objects.count()
         return context
-
 
 # --- Task ---
 class TaskListView(ListView):
@@ -88,6 +90,7 @@ class SubTaskCreateView(CreateView):
     form_class = SubTaskForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('subtask-list')
+    extra_context = {"model_name": "SubTask"}
 
 
 class SubTaskUpdateView(UpdateView):
@@ -95,12 +98,14 @@ class SubTaskUpdateView(UpdateView):
     form_class = SubTaskForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('subtask-list')
+    extra_context = {"model_name": "SubTask"}
 
 
 class SubTaskDeleteView(DeleteView):
     model = SubTask
     template_name = "Tasks/generic_confirm_delete.html"
     success_url = reverse_lazy('subtask-list')
+    extra_context = {"model_name": "SubTask"}
 
 
 # --- Note ---
@@ -123,6 +128,7 @@ class NoteCreateView(CreateView):
     form_class = NoteForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('note-list')
+    extra_context = {"model_name": "Note"}
 
 
 class NoteUpdateView(UpdateView):
@@ -130,12 +136,14 @@ class NoteUpdateView(UpdateView):
     form_class = NoteForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('note-list')
+    extra_context = {"model_name": "Note"}
 
 
 class NoteDeleteView(DeleteView):
     model = Note
     template_name = "Tasks/generic_confirm_delete.html"
     success_url = reverse_lazy('note-list')
+    extra_context = {"model_name": "Note"}
 
 
 # --- Category ---
@@ -158,6 +166,7 @@ class CategoryCreateView(CreateView):
     form_class = CategoryForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('category-list')
+    extra_context = {"model_name": "Category"}
 
 
 class CategoryUpdateView(UpdateView):
@@ -165,12 +174,14 @@ class CategoryUpdateView(UpdateView):
     form_class = CategoryForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('category-list')
+    extra_context = {"model_name": "Category"}
 
 
 class CategoryDeleteView(DeleteView):
     model = Category
     template_name = "Tasks/generic_confirm_delete.html"
     success_url = reverse_lazy('category-list')
+    extra_context = {"model_name": "Category"}
 
 
 # --- Priority ---
@@ -193,6 +204,7 @@ class PriorityCreateView(CreateView):
     form_class = PriorityForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('priority-list')
+    extra_context = {"model_name": "Priority"}
 
 
 class PriorityUpdateView(UpdateView):
@@ -200,9 +212,11 @@ class PriorityUpdateView(UpdateView):
     form_class = PriorityForm
     template_name = "Tasks/generic_form.html"
     success_url = reverse_lazy('priority-list')
+    extra_context = {"model_name": "Priority"}
 
 
 class PriorityDeleteView(DeleteView):
     model = Priority
     template_name = "Tasks/generic_confirm_delete.html"
     success_url = reverse_lazy('priority-list')
+    extra_context = {"model_name": "Priority"}
