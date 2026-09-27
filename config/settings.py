@@ -3,7 +3,6 @@ Django settings for config project.
 """
 
 from pathlib import Path
-import socket
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,10 +44,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-if "pythonanywhere" in socket.gethostname():
-    SITE_ID = 2  # production site (seandeveloper.pythonanywhere.com)
-else:
-    SITE_ID = 1  # local site (127.0.0.1:8000)
+SITE_ID = 1
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
